@@ -9,7 +9,8 @@
    - name: install apache2 package
      apt:
        name: apache2
-
+     when: ansible_distribution == "Ubuntu" and ansible_distribution_version == "10"
+    
    - name: add php support for apache
      apt:
        name: libapache2-mod-php
