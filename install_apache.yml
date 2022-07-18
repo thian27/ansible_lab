@@ -3,15 +3,28 @@
 
 -  hosts: all
    become: true
+   become_user: root
    tasks:
 
-
-   - name: install apache2 package
+  
+   - name: install apache2 package Debian
      apt:
        name: apache2
-     when: ansible_distribution == "Ubuntu" and ansible_distribution_version == "10"
+     when: ansible_distribution == "Debian" and ansible_distribution_version == "10"
     
    - name: add php support for apache
      apt:
        name: libapache2-mod-php
        state: latest
+
+
+   - name: install apache2 package on CentOs
+     dnf:
+       name: httpd
+     when: ansible_distribution == "CentOS"
+
+   - name: add php support for apache
+     dnf:
+       name: php
+       state: latest
+     when: ansible_distribution == "CentOS"
